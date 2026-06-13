@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  <localRepository>/path/to/local/repo</localRepository>
+  -->
+	<localRepository>D:/repository/jdk17/</localRepository>
+  <!-- interactiveMode
+   | This will determine whether maven prompts you when it needs input. If set to false,
+   | maven will use a sensible default value, perhaps based on some other setting, for
+   | the parameter in question.
+   |
+   | Default: true
+  <interactiveMode>true</interactiveMode>
+  -->
+
+  <!-- offline
+   | Determines whether maven should attempt to connect to the network when executing a build.
+   | This will have an effect on artifact downloads, artifact deployment, and others.
+   |
+   | Default: false
+  <offline>false</offline>
+  -->
+
+  <!-- pluginGroups
+   | This is a list of additional group identifiers that will be searched when resolving plugins by their prefix, i.e.
+   | when invoking a command line like "mvn prefix:goal". Maven will automatically add the group identifiers
+   | "org.apache.maven.plugins" and "org.codehaus.mojo" if these are not already contained in the list.
+   |-->
+  <pluginGroups>
+    <!-- pluginGroup
+     | Specifies a further group identifier to use for plugin lookup.
+    <pluginGroup>com.your.plugins</pluginGroup>
+    -->
+  </pluginGroups>
+
+  <!-- proxies
+   | This is a list of proxies which can be used on this machine to connect to the network.
+   | Unless otherwise specified (by system property or command-line switch), the first proxy
+   | specification in this list marked as active will be used.
+   |-->
+  <proxies>
+  </proxies>
+
+  <!-- servers
+   | This is a list of authentication profiles, keyed by the server-id used within the system.
+   | Authentication profiles can be used whenever maven must make a connection to a remote server.
+   |-->
+  <servers>
+	<server>
+      <id>company-snapshots</id>
+      <username>upload</username>
+      <password>upload</password>
+    </server>
+	<server>
+      <id>company-releases</id>
+      <username>upload</username>
+      <password>upload</password>
+    </server>
+  </servers>
+<mirrors>
+  <mirror>
+    <id>aliyunmaven</id>
+    <mirrorOf>*</mirrorOf>
+    <name>阿里云公共仓库</name>
+    <url>https://maven.aliyun.com/repository/public</url>
+  </mirror>
+</mirrors>
+  <profiles>
+  	<profile>
+      <id>company-java8-settings</id>
+      <pluginRepositories>
+          <pluginRepository>
+              <id>aliyun</id>
+              <name>aliyun</name>
+              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+          </pluginRepository>
+      </pluginRepositories>
+
+      <repositories>
+	  <!--公司maven仓库地址-->
+          <repository>
+              <id>company-group-public</id>
+              <name>company-group-public</name>
+              <url>https://nexus.company.com/repository/maven-public/</url>
+              <snapshots>
+                  <enabled>true</enabled>
+                  <updatePolicy>always</updatePolicy>
+              </snapshots>
+              <releases>
+                  <enabled>true</enabled>
+              </releases>
+          </repository>
+          <!--项目级仓库-->
+          <!--镜像仓库-->
+          <repository>
+              <id>aliyun</id>
+              <name>aliyun</name>
+              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+          </repository>
+          
+      </repositories>
+    </profile>
+	<profile>
+      <id>company-settings</id>
+      <pluginRepositories>
+          <pluginRepository>
+              <id>aliyun</id>
+              <name>aliyun</name>
+              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+          </pluginRepository>
+      </pluginRepositories>
+
+      <repositories>
+	  <!--公司maven仓库地址-->
+          <repository>
+              <id>company-group</id>
+              <name>company-group</name>
+              <url>https://nexus.company.com/repository/company-group/</url>
+              <snapshots>
+                  <enabled>true</enabled>
+                  <updatePolicy>always</updatePolicy>
+              </snapshots>
+              <releases>
+                  <enabled>true</enabled>
+              </releases>
+          </repository>
+          <!--项目级仓库-->
+          <!--镜像仓库-->
+          <repository>
+              <id>aliyun</id>
+              <name>aliyun</name>
+              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+          </repository>
+          
+      </repositories>
+    </profile>
+
+	<profile>
+      <id>aliyun</id>
+
+      <pluginRepositories>
+          <pluginRepository>
+              <id>aliyun</id>
+              <name>aliyun</name>
+              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+          </pluginRepository>
+      </pluginRepositories>
+
+      <repositories>
+          <!--项目级仓库-->
+          <!--镜像仓库-->
+          <repository>
+              <id>aliyun</id>
+              <name>aliyun</name>
+              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+          </repository>
+          
+      </repositories>
+    </profile>
+  </profiles>
+</settings>
