@@ -1,0 +1,119 @@
+logging:
+  config: 'classpath:logback-spring.xml'
+  path: logs/policy-web/log
+  level:
+    root: info
+server:
+  port: 8010
+  undertow:
+    io-threads: 4
+    worker-threads: 32
+    buffer-size: 1024
+    direct-buffers: true
+spring:
+  application:
+    name: policy-web
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: 'yyyy-MM-dd HH:mm:ss'
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      name: master
+      url: jdbc:mysql://172.16.7.74:8090/demo?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initialSize: 3
+      minIdle: 30
+      maxActive: 1000
+      maxWait: 10000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 30000
+      validationQuery: select 1 from dual
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: 'stat,wall,slf4j'
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+      stat-view-servlet:
+        login-username: admin
+        login-password: 123456
+      aop-patterns: com.policy.*.service.*
+  mail:
+    host: smtp.qq.com
+    username: 277057638@qq.com
+    password: 277057638Ck
+    port: 465
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+  redis:
+    database: 2
+    host: 172.16.7.74
+    #password: AAAaaa1234
+    port: 8092
+    lettuce:
+      pool:
+        max-active: 2000
+        min-idle: 30
+        max-idle: 100
+    timeout: 10000
+  task:
+    execution:
+      pool:
+        core-size: 24
+        max-size: 100
+  servlet:
+    multipart:
+      max-file-size: 4MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+mybatis-plus:
+  mapper-locations: 'classpath:/mapper/*Mapper.xml'
+  typeAliasesPackage: com.policy.web.store.entity
+  global-config:
+    db-config:
+      id-type: AUTO
+      field-strategy: not_empty
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      db-type: mysql
+      table-underline: true
+    sql-parser-cache: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+jasypt:
+  encryptor:
+    password: test
+auth:
+  enable: true
+  jwt:
+    secretKey: rule
+    keepTime: -1
+    issuer: Policy
+  redis.token:
+    keyPrefix: 'policy:token:'
+    keepTime: 3600000
+aliyun:
+  oss:
+    enable: false
+    endPoint: null
+    accessKeyId: null
+    accessKeySecret: null
+    bucketName: null
+    defaultFolder: Policy
+swagger:
+  basic:
+    enable: true
+    username: root
+    password: root

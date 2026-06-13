@@ -1,0 +1,54 @@
+package com.policy.web.config;
+
+import com.policy.web.service.WorkspaceService;
+import com.policy.web.vo.user.UserData;
+import com.policy.web.vo.workspace.Workspace;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
+
+
+/**
+ * 〈一句话功能简述〉<br>
+ * 〈〉
+ *
+ * @author 
+ * @date 2020/12/22
+ * @since 1.0.0
+ */
+@Slf4j
+@Component
+public class Context implements ApplicationContextAware {
+
+
+    private static ApplicationContext applicationContext;
+
+
+    @Override
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
+        Context.applicationContext = applicationContext;
+    }
+
+    /**
+     * 获取当前登录用户
+     *
+     * @return UserData
+     */
+    public static UserData getCurrentUser() {
+        return AuthInterceptor.USER.get();
+    }
+
+    /**
+     * 获取当前用户用户所在工作空间
+     *
+     * @return Workspace
+     */
+    public static Workspace getCurrentWorkspace() {
+        WorkspaceService workspaceService = applicationContext.getBean(WorkspaceService.class);
+        return workspaceService.currentWorkspace();
+    }
+
+}
