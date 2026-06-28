@@ -1,4 +1,10 @@
 spring:
+  messages:
+    basename: i18n/messages   # 资源文件前缀（不带 .properties）
+    encoding: UTF-8
+    fallback-to-system-locale: false    # 禁用系统语言回退
+    default-locale: zh_CN               # 默认语言
+    cache-duration: 3600s               # 缓存时间（生产建议开启）
   application:
     name: youlai-boot
   profiles:

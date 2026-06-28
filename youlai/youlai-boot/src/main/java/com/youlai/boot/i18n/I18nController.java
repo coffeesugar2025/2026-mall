@@ -21,7 +21,7 @@ public class I18nController {
         // 获取当前 Locale（由 LocaleResolver 设置）
         Locale locale = LocaleContextHolder.getLocale();
         // 获取国际化消息，支持参数占位符 {0}, {1}...
-        return messageSource.getMessage("greeting", new Object[]{name}, locale);
+        return messageSource.getMessage("greeting1234", new Object[]{name}, locale);
     }
 
     @GetMapping("/login-text")
