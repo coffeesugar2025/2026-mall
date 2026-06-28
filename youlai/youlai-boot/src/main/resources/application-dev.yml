@@ -2,6 +2,12 @@ server:
   port: 8000
 
 spring:
+  messages:
+    basename: classpath:i18n/messages   # 资源文件前缀（不带 .properties）
+    encoding: UTF-8
+    fallback-to-system-locale: false    # 禁用系统语言回退
+    default-locale: zh_CN               # 默认语言
+    cache-duration: 3600s               # 缓存时间（生产建议开启）
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver # 3.2.0开始支持SPI可省略此配置
