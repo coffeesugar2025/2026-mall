@@ -1,0 +1,49 @@
+{
+    "name": "vue3-advanced-query-builder",
+    "version": "3.2.0",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/orakley/vue3-query-builder.git"
+    },
+    "description": "A Query Builder written in Vue3",
+    "author": "Pauline Schlesier (https://orakley.github.io)",
+    "keywords": [
+        "Vue3 Query Bilder",
+        "Drag & Drop",
+        "RuleBuilder"
+    ],
+    "scripts": {
+        "dev": "vite",
+        "build": "rollup -c",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@rollup/plugin-terser": "^0.4.3",
+        "rollup-plugin-scss": "^4.0.0",
+        "vue": "^3.2.21",
+        "vuedraggable": "^4.1.0"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^4.2.3",
+        "rollup": "^3.28.0",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-vue": "^6.0.0",
+        "sass": "^1.65.1",
+        "vite": "^4.4.9"
+    },
+    "peerDependencies": {
+        "vue": "^3.2.21"
+    },
+    "type": "module",
+    "files": [
+        "dist/*"
+    ],
+    "main": "./dist/vue3-advanced-query-builder.js",
+    "module": "./dist/vue3-advanced-query-builder.mjs",
+    "bugs": {
+        "url": "https://github.com/orakley/vue3-query-builder/issues"
+    },
+    "homepage": "https://github.com/orakley/vue3-query-builder#readme"
+}
