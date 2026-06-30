@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import org.junit.jupiter.api.Test;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
@@ -132,8 +131,10 @@ public class MysqlDdlGenerator {
             TableId tableIdAnno = field.getAnnotation(TableId.class);
             if (tableIdAnno != null) {
                 TableField tableFieldAnno = field.getAnnotation(TableField.class);
-                String columnName = StrUtil.isNotBlank(tableFieldAnno.value()) ? tableFieldAnno.value() : field.getName();
-                primaryKey = columnName;
+                if (tableFieldAnno != null) {
+                    String columnName = StrUtil.isNotBlank(tableFieldAnno.value()) ? tableFieldAnno.value() : field.getName();
+                    primaryKey = columnName;
+                }
             }
         }
 
@@ -200,20 +201,4 @@ public class MysqlDdlGenerator {
         }
         return fieldSql.toString();
     }
-
-    @Test
-    public void testGenerate() throws Exception {
-        // 1. 配置扫描DO包路径
-        String scanPackage = "com.youlai.boot";
-        // 2. DDL输出文件路径（项目根目录下ddl.sql）
-        String sqlFilePath = "d:\\table_ddl.sql";
-        try {
-            MysqlDdlGenerator generator = new MysqlDdlGenerator(scanPackage, sqlFilePath);
-            generator.generate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
 }

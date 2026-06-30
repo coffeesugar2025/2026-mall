@@ -1,6 +1,7 @@
 package com.youlai.boot.generate;
 
 import cn.hutool.core.util.StrUtil;
+import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
@@ -82,6 +83,7 @@ public class SpringMvcApiScanner {
         }
 
         // 3. 写入文件
+        FileUtils.writeStringToFile(new File(outputFilePath), content.toString());
         //FileUtil.appendUtf8(content.toString(), outputFilePath);
         System.out.println("接口清单生成完成，文件路径：" + new File(outputFilePath).getAbsolutePath());
     }
