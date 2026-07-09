@@ -1,0 +1,14 @@
+server:
+  port: 5202
+  tomcat:
+    max-http-form-post-size: -1
+spring:
+  main:
+    allow-circular-references: true
+    #allow-bean-definition-overriding: true
+  application:
+    name: rule-engine
+
+logging:
+  level:
+    root: info

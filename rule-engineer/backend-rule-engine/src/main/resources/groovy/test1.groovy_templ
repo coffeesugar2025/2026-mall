@@ -1,0 +1,10 @@
+import com.salary.calcengine.groovy.*
+import groovy.transform.CompileStatic
+
+@CompileStatic
+class %s implements GroovyRule {
+    boolean run(Context context){
+        if(context == null) return false
+        %s //业务执行逻辑：可配置化
+    }
+}
