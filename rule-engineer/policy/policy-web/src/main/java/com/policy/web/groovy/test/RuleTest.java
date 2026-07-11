@@ -31,7 +31,7 @@ public class RuleTest {
 
     @RequestMapping("testGroovy")
     public PlainResult<List> testGroovy(int count) {
-        List<Boolean> list = new ArrayList<>();
+        List list = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Boolean result = null;
             ExecutorService executor = Executors.newCachedThreadPool();
@@ -61,7 +61,8 @@ public class RuleTest {
             executor.shutdown();
             list.add(result);
         }
-        return PlainResult.ok(list);
+        //return PlainResult.ok(list);
+        return null;
     }
 
 

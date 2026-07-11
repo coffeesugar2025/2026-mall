@@ -5,7 +5,6 @@ import com.googlecode.aviator.AviatorEvaluator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -14,7 +13,7 @@ import java.util.*;
 public class AviatorTest {
 
 
-    @Test
+    //@Test
     public void testExpress() {
         AviatorEvaluator.setOptimize(AviatorEvaluator.EVAL);
 

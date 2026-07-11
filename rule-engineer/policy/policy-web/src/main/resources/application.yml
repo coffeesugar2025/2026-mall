@@ -20,9 +20,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       name: master
-      url: jdbc:mysql://172.16.7.74:8090/demo?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+      url: jdbc:mysql://127.0.0.1:3306/demo?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
       username: root
-      password: root
+      password: AAAaaa1234
       driver-class-name: com.mysql.cj.jdbc.Driver
       initialSize: 3
       minIdle: 30
@@ -45,8 +45,8 @@ spring:
       aop-patterns: com.policy.*.service.*
   mail:
     host: smtp.qq.com
-    username: 277057638@qq.com
-    password: 277057638Ck
+    username: 2770576389@qq.com
+    password: 277057638999Ck
     port: 465
     protocol: smtp
     properties:
@@ -57,9 +57,9 @@ spring:
             enable: true
   redis:
     database: 2
-    host: 172.16.7.74
+    host: 127.0.0.1
     #password: AAAaaa1234
-    port: 8092
+    port: 6379
     lettuce:
       pool:
         max-active: 2000
