@@ -1,0 +1,120 @@
+package com.policy.web.service;
+
+import cn.hutool.core.thread.ThreadUtil;
+import com.policy.core.DefaultInput;
+import com.policy.core.Engine;
+import com.policy.core.Input;
+import com.policy.common.exception.EngineException;
+import com.policy.common.exception.ValidException;
+import com.policy.web.vo.output.BatchExecuteRequest;
+import com.policy.web.vo.output.BatchExecuteResponse;
+import com.policy.web.vo.output.ExecuteRequest;
+import com.policy.web.vo.output.IsExistsRequest;
+import com.policy.web.vo.workspace.AccessKey;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+
+/**
+ * 〈一句话功能简述〉<br>
+ * 〈〉
+ *
+ * @author 
+ * @date 2020/8/22
+ * @since 1.0.0
+ */
+@Slf4j
+@AllArgsConstructor
+public abstract class PolicyOutService {
+
+
+    private final Engine<?> engine;
+    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    private final WorkspaceService workspaceService;
+
+
+
+    /**
+     * 执行单个规则，获取执行结果
+     *
+     * @param executeRequest 执行规则入参
+     * @return 规则执行结果
+     */
+    public Object execute(ExecuteRequest executeRequest) {
+        log.info("开始执行，入参：{}", executeRequest);
+        String workspaceCode = executeRequest.getWorkspaceCode();
+        AccessKey accessKey = this.workspaceService.accessKey(workspaceCode);
+        if (!accessKey.equals(executeRequest.getAccessKeyId(), executeRequest.getAccessKeySecret())) {
+            throw new ValidException("AccessKey Verification failed");
+        }
+        Input input = new DefaultInput();
+        input.putAll(executeRequest.getParam());
+        return this.engine.execute(input, workspaceCode, executeRequest.getCode());
+    }
+
+
+    /**
+     * 默认批量执行器
+     * <p>
+     * 批量执行多个(一次最多1000个)，获取执行结果
+     *
+     * @param batchExecuteRequest 批量数据
+     * @return 执行结果
+     */
+    public Object batchExecute(BatchExecuteRequest batchExecuteRequest) {
+        String workspaceCode = batchExecuteRequest.getWorkspaceCode();
+        AccessKey accessKey = this.workspaceService.accessKey(workspaceCode);
+        if (!accessKey.equals(batchExecuteRequest.getAccessKeyId(), batchExecuteRequest.getAccessKeySecret())) {
+            throw new ValidException("AccessKey Verification failed");
+        }
+        List<BatchExecuteRequest.ExecuteInfo> executeInfos = batchExecuteRequest.getExecuteInfos();
+        Integer threadSegNumber = batchExecuteRequest.getThreadSegNumber();
+        log.info("批量执行数量：{},单个线程执行{}条", executeInfos.size(), threadSegNumber);
+        List<BatchExecuteResponse> outputs = new CopyOnWriteArrayList<>();
+        int countDownNumber = executeInfos.size() % threadSegNumber == 0 ? executeInfos.size() / threadSegNumber : (executeInfos.size() / threadSegNumber) + 1;
+        CountDownLatch countDownLatch = ThreadUtil.newCountDownLatch(countDownNumber);
+        // 批量插入，执行一次批量
+        for (int fromIndex = 0; fromIndex < executeInfos.size(); fromIndex += threadSegNumber) {
+            int toIndex = Math.min(fromIndex + threadSegNumber, executeInfos.size());
+            List<BatchExecuteRequest.ExecuteInfo> infoList = executeInfos.subList(fromIndex, toIndex);
+            BatchExecuteTask batchExecuteRuleTask = new BatchExecuteTask(workspaceCode, countDownLatch, outputs, this.engine, infoList);
+            this.threadPoolTaskExecutor.execute(batchExecuteRuleTask);
+        }
+        // 等待线程处理完毕
+        try {
+            Long timeout = batchExecuteRequest.getTimeout();
+            if (timeout.equals(-1L)) {
+                countDownLatch.await();
+            } else {
+                if (!countDownLatch.await(timeout, TimeUnit.MILLISECONDS)) {
+                    throw new EngineException("Execution timeout:{}ms", timeout);
+                }
+            }
+        } catch (InterruptedException e) {
+            throw new EngineException("Execution failed, rule execution thread was interrupted", e);
+        }
+        return outputs;
+    }
+
+    /**
+     * 引擎中是否存在这个规则
+     *
+     * @param isExistsRequest 参数
+     * @return true存在
+     */
+    public Boolean isExists(IsExistsRequest isExistsRequest) {
+        String workspaceCode = isExistsRequest.getWorkspaceCode();
+        AccessKey accessKey = this.workspaceService.accessKey(workspaceCode);
+        if (!accessKey.equals(isExistsRequest.getAccessKeyId(), isExistsRequest.getAccessKeySecret())) {
+            throw new ValidException("AccessKey Verification failed");
+        }
+        return this.engine.isExists(isExistsRequest.getWorkspaceCode(), isExistsRequest.getCode());
+    }
+
+}

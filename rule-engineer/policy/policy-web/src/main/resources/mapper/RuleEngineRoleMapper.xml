@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.policy.web.store.mapper.PolicyRoleMapper">
+
+    <select id="listRoleByUserId" resultType="com.policy.web.store.entity.PolicyRole">
+            select r.*
+            from policy_role r,
+                 policy_user_role ur
+            where r.id = ur.role_id
+            and ur.user_id = #{userId}
+    </select>
+</mapper>

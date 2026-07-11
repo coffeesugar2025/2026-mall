@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.policy.web.store.mapper.PolicyElementMapper">
+
+    <select id="countPublishRuleElement" resultType="java.lang.Integer">
+            select count(*)
+            from policy_general_rule_publish r
+            where r.deleted = 0 and  JSON_CONTAINS(r.reference_data -> '$.elementIds', JSON_ARRAY(#{id}))
+    </select>
+
+    <select id="countPublishRuleSetElement" resultType="java.lang.Integer">
+            select count(*)
+            from policy_rule_set_publish r
+            where r.deleted = 0 and  JSON_CONTAINS(r.reference_data -> '$.elementIds', JSON_ARRAY(#{id}))
+    </select>
+
+    <select id="countRuleElement" resultType="java.lang.Integer">
+                  select count(*)
+            from policy_general_rule r
+            where r.deleted = 0 and  JSON_CONTAINS(r.reference_data -> '$.elementIds', JSON_ARRAY(#{id}))
+    </select>
+
+    <select id="countRuleSetElement" resultType="java.lang.Integer">
+           select count(*)
+            from policy_rule_set r
+            where r.deleted = 0 and  JSON_CONTAINS(r.reference_data -> '$.elementIds', JSON_ARRAY(#{id}))
+    </select>
+
+    <select id="countDecisionTableElementId" resultType="int">
+            select count(*)
+            from policy_decision_table r
+            where r.deleted = 0 and  JSON_CONTAINS(r.reference_data -> '$.elementIds', JSON_ARRAY(#{id}))
+    </select>
+
+    <select id="countPublishDecisionTableElementId" resultType="int">
+          select count(*)
+            from policy_decision_table_publish r
+            where r.deleted = 0 and  JSON_CONTAINS(r.reference_data -> '$.elementIds', JSON_ARRAY(#{id}))
+    </select>
+</mapper>

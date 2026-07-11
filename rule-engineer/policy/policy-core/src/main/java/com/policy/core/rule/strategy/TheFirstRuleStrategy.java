@@ -1,0 +1,55 @@
+package com.policy.core.rule.strategy;
+
+import cn.hutool.core.collection.CollUtil;
+import com.policy.core.Input;
+import com.policy.core.PolicyConfiguration;
+import com.policy.core.rule.Rule;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * 〈一句话功能简述〉<br>
+ * 〈〉
+ *
+ * @author 
+ * @create 2020/12/29
+ * @since 1.0.0
+ */
+@Slf4j
+public class TheFirstRuleStrategy implements RuleSetStrategy {
+
+    private static final TheFirstRuleStrategy THE_FIRST_RULE_STRATEGY = new TheFirstRuleStrategy();
+
+    private TheFirstRuleStrategy() {
+    }
+
+    public static TheFirstRuleStrategy getInstance() {
+        return THE_FIRST_RULE_STRATEGY;
+    }
+
+    @Override
+    public List<Object> compute(List<Rule> rules, Input input, PolicyConfiguration configuration) {
+        // 当没有任何规则时
+        if (CollUtil.isEmpty(rules)) {
+            log.debug("规则集为空");
+            return Collections.emptyList();
+        }
+        Rule rule = rules.iterator().next();
+        log.debug("执行规则：" + rule.getName());
+        Object action = rule.execute(input, configuration);
+        // 如果结果为空
+        if (action == null) {
+            if (log.isDebugEnabled()) {
+                log.debug("规则：{} 未命中命中结果", rule.getName());
+            }
+            return null;
+        }
+        if (log.isDebugEnabled()) {
+            log.debug("规则：{} 命中结果：{}", rule.getName(), action);
+        }
+        return Collections.singletonList(action);
+    }
+
+}
