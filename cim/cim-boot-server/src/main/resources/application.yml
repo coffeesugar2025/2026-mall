@@ -1,0 +1,78 @@
+server:
+  port: 8080
+
+spring:
+  jackson:
+    default-property-inclusion: non_empty
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/cim?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: AAAaaa1234
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: MASTER_HIKARI_POOL
+      max-lifetime: 120000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      validation-timeout: 600000
+  jpa:
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 12
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: 10s
+        max-idle: 5
+        min-idle: 1
+    timeout: 10s
+    #password: redisv587
+  freemarker:
+    suffix: .html
+    charset: utf-8
+    content-type: text/html
+    cache: false
+    templateLoaderPath: classpath:/page/
+    settings:
+      auto_import: /ftl/spring.ftl as spring
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+
+cim:
+  app:
+    port: 23456
+    enable: true
+    write-idle: 45s
+    read-idle: 60s
+    max-pong-timeout: 3
+  websocket:
+    enable: true
+    port: 34567
+    path: /
+    protocol: protobuf
+    write-idle: 45s
+    read-idle: 60s
+    max-pong-timeout: 3
+  apns:
+    p12:
+      file: /apns/app.p12
+      password: 123
+    debug: false
+    app-id: com.xxx.xxx.ios
