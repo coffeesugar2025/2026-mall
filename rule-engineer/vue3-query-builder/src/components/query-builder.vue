@@ -77,10 +77,23 @@ onMounted(() => {
     setModelValue()
 })
 
+// function setModelValue(){
+//     debugger;
+//     let model_value = props.modelValue;
+//     if(props.modelValue){
+//         currentQuery.rules = [...props.modelValue?.rules] || []
+//         currentQuery.levelOperators = [...props.modelValue?.levelOperators] || []
+//     }
+// }
 function setModelValue(){
-    if(props.modelValue){
-        currentQuery.rules = [...props.modelValue?.rules] || []
-        currentQuery.levelOperators = [...props.modelValue?.levelOperators] || []
+    let model_value = props.modelValue;
+    if(model_value){
+        // 使用空合并运算符，避免展开undefined报错
+        currentQuery.rules = [...(model_value.rules ?? [])]
+        currentQuery.levelOperators = [...(model_value.levelOperators ?? [])]
+    } else {
+        currentQuery.rules = []
+        currentQuery.levelOperators = []
     }
 }
 
