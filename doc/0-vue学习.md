@@ -89,6 +89,147 @@
 
 https://vuejs.org/guide/introduction.html
 
+### 1，vue3工程化
+
+A，npm create vue@latest
+
+如下进行选择
+
+```
+✔ Project name: … todo-vue
+✔ Add TypeScript? … No
+✔ Add JSX Support? … No
+✔ Add Vue Router for Single Page Application development? … No
+✔ Add Pinia for state management? … No
+✔ Add Vitest for Unit Testing? … No
+✔ Add an End-to-End Testing Solution? › No
+✔ Add ESLint for code quality? … Yes
+? Add Prettier for code formatting? › Yes
+```
+
+B，项目结构
+
+1>package.json
+
+dependencies（运行依赖，打包进产物）
+| 包名       | 版本   | 作用介绍                                    |
+| ---------- | ------ | ------------------------------------------- |
+| pinia      | ^4.0.2 | Vue官方状态管理库，替代Vuex，管理全局状态   |
+| vue        | rc     | Vue框架，rc为候选预发布版本，不建议生产使用 |
+| vue-router | ^5.2.0 | Vue路由，页面跳转、路由守卫、路由管理       |
+
+devDependencies（开发依赖，仅本地开发）
+| 包名                          | 版本     | 作用介绍                                           |
+| ----------------------------- | -------- | -------------------------------------------------- |
+| @playwright/test              | ^1.61.1  | E2E端到端测试，模拟真实浏览器做业务自动化测试      |
+| @tsconfig/node24              | ^24.0.4  | Node24环境TS基础配置文件                           |
+| @types/jsdom                  | ^28.0.3  | jsdom的TypeScript类型声明                          |
+| @types/node                   | ^24.13.3 | Node.js内置API的TS类型定义                         |
+| @vitejs/plugin-vue            | ^6.0.8   | Vite插件，解析`.vue`单文件组件                     |
+| @vitejs/plugin-vue-jsx        | ^5.1.6   | Vite插件，支持Vue JSX/TSX语法                      |
+| @vitest/eslint-plugin         | ^1.6.23  | Vitest配套eslint校验规则                           |
+| @vue/eslint-config-typescript | ^14.9.0  | Vue+TypeScript的eslint预设配置                     |
+| @vue/test-utils               | ^2.4.11  | Vue组件单元测试工具，渲染组件做测试断言            |
+| @vue/tsconfig                 | ^0.9.1   | Vue项目官方推荐tsconfig基础配置                    |
+| eslint                        | ^10.7.0  | JS/TS代码静态检查，发现代码错误与规范问题          |
+| eslint-config-prettier        | ^10.1.8  | 关闭eslint与格式化工具冲突的规则                   |
+| eslint-plugin-oxlint          | ~1.73.0  | 将oxlint能力接入eslint                             |
+| eslint-plugin-playwright      | ^2.10.5  | playwright测试代码eslint校验规则                   |
+| eslint-plugin-vue             | ~10.9.2  | Vue模板与脚本的eslint校验规则                      |
+| jiti                          | ^2.7.0   | 运行时加载ts配置文件，无需编译                     |
+| jsdom                         | ^29.1.1  | Node模拟浏览器DOM环境，单元测试使用                |
+| npm-run-all2                  | ^9.0.2   | npm脚本串行/并行执行工具，scripts中run‑p/run‑s依赖 |
+| oxfmt                         | ^0.59.0  | Rust实现的高速代码格式化工具，替代prettier         |
+| oxlint                        | ~1.74.0  | Rust实现高性能代码lint工具，速度快                 |
+| typescript                    | ~6.0.0   | TypeScript编译器，提供类型系统                     |
+| vite                          | ^8.1.5   | 前端构建工具，本地开发服务器、打包构建             |
+| vite-plugin-vue-devtools      | ^8.1.5   | Vue开发调试工具，浏览器面板查看组件、state         |
+| vitest                        | ^4.1.10  | Vite配套单元测试框架，替代jest                     |
+| vue-eslint-parser             | ^10.4.1  | eslint解析vue单文件template模板                    |
+| vue-tsc                       | ^3.3.7   | Vue类型检查工具，对SFC做ts类型校验                 |
+
+overrides强制锁版本包（全部rc候选版）
+| 包名                 | 版本 | 作用介绍                |
+| -------------------- | ---- | ----------------------- |
+| vue                  | rc   | vue核心框架             |
+| @vue/compiler‑core   | rc   | vue模板编译器核心       |
+| @vue/compiler‑dom    | rc   | 针对浏览器DOM的模板编译 |
+| @vue/compiler‑sfc    | rc   | 解析`.vue`单文件组件    |
+| @vue/compiler‑ssr    | rc   | 服务端渲染模板编译      |
+| @vue/compiler‑vapor  | rc   | vapor新编译模式编译器   |
+| @vue/reactivity      | rc   | vue响应式系统           |
+| @vue/runtime‑core    | rc   | 运行时核心逻辑          |
+| @vue/runtime‑dom     | rc   | 浏览器DOM运行时         |
+| @vue/runtime‑vapor   | rc   | vapor运行时             |
+| @vue/server‑renderer | rc   | SSR服务端渲染           |
+| @vue/shared          | rc   | vue内部公共工具         |
+| @vue/compat          | rc   | 兼容旧版本Vue2兼容层    |
+
+打包指令
+
+| 命令                  | 作用                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| `npm run dev`         | 启动 vite 本地开发服务器                                     |
+| `npm run build`       | 打包：并行执行**类型检查 + vite 打包**；`run‑p`并行执行（来自 npm‑run‑all2） |
+| `npm run build-only`  | 只做打包，跳过 ts 类型检查                                   |
+| `npm run preview`     | 本地预览打包后的 dist 产物                                   |
+| `npm run test:unit`   | vitest 单元测试                                              |
+| `npm run test:e2e`    | playwright 端到端自动化测试                                  |
+| `npm run type‑check`  | vue‑tsc 做全项目 TS 类型校验                                 |
+| `npm run lint`        | 串行执行所有 lint 子命令，`run‑s`串行执行                    |
+| `npm run lint:oxlint` | oxlint 代码检查并自动修复                                    |
+| `npm run lint:eslint` | eslint 检查修复，开启缓存提升速度                            |
+| `npm run format`      | oxfmt 格式化 src 目录代码                                    |
+
+vite.config.ts
+
+```
+import { fileURLToPath, URL } from 'node:url'
+
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueDevTools from 'vite-plugin-vue-devtools'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    vueJsx(),
+    vueDevTools(),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+})
+
+```
+
+这是Vite的项目配置文件，作用：**控制项目开发、打包的行为**。
+
+1. 导入node工具函数，用来设置路径别名；导入vite、vue相关插件。
+2. 启用3个插件：
+   - vue插件：解析`.vue`单文件组件
+   - vueJsx：支持JSX/TSX语法
+   - vueDevTools：开发时浏览器里的vue调试工具
+3. 配置路径别名：`@`直接代表`src`文件夹，写代码可以`@/xxx`快速引入文件。
+
+
+
+main.ts
+
+```
+引入全局样式 main.css。
+导入 vue 创建实例、pinia 状态库、根组件 App、路由 router。
+createApp(App) 创建 Vue 应用实例，App.vue是页面根组件。
+app.use() 安装插件：注册 pinia 全局状态、注册 vue 路由。
+app.mount('#app') 把整个 Vue 应用挂载到 index.html 中 id 为app的 DOM 节点上，页面渲染出来
+```
+
+
+
 ## 二，element-plus
 
 # 3）公共组件开发
