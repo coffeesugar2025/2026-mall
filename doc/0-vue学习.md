@@ -234,4 +234,14 @@ app.mount('#app') 把整个 Vue 应用挂载到 index.html 中 id 为app的 DOM 
 
 # 3）公共组件开发
 
+执行指令
+
+```
+npm create vite-lib-starter@latest my-vue-lib
+```
+
+
+
+
+
 # 4）CICD建设
