@@ -5,9 +5,15 @@ import com.example.aiops.agent.OpsAgent;
 import com.example.aiops.agent.SupervisorAgent;
 import com.example.aiops.model.IncidentReport;
 import com.example.aiops.model.InvestmentAdvice;
+import dev.langchain4j.model.chat.response.ChatResponse;
+import dev.langchain4j.rag.content.Content;
 import dev.langchain4j.service.TokenStream;
+import dev.langchain4j.service.tool.ToolExecution;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Agent 编排 Service：
@@ -57,11 +63,49 @@ public class AgentService {
     static final class SimpleTokenStream implements TokenStream {
         private final String text;
         SimpleTokenStream(String text) { this.text = text; }
-        @Override public TokenStream onNext(java.util.function.Consumer<String> c) { c.accept(text); return this; }
-        @Override public TokenStream onError(java.util.function.Consumer<Throwable> c) { return this; }
-        @Override public TokenStream onComplete(java.util.function.Consumer<String> c) { c.accept(text); return this; }
-        @Override public String text() { return text; }
-        @Override public TokenStream start() { return this; }
-        @Override public TokenStream abort() { return this; }
+//        @Override
+//        public TokenStream onNext(java.util.function.Consumer<String> c) { c.accept(text); return this; }
+
+        @Override
+        public TokenStream onPartialResponse(Consumer<String> consumer) {
+            return null;
+        }
+
+        @Override
+        public TokenStream onRetrieved(Consumer<List<Content>> consumer) {
+            return null;
+        }
+
+        @Override
+        public TokenStream onToolExecuted(Consumer<ToolExecution> consumer) {
+            return null;
+        }
+
+        @Override
+        public TokenStream onCompleteResponse(Consumer<ChatResponse> consumer) {
+            return null;
+        }
+
+        @Override
+        public TokenStream onError(java.util.function.Consumer<Throwable> c) { return this; }
+
+        @Override
+        public TokenStream ignoreErrors() {
+            return null;
+        }
+
+        @Override
+        public void start() {
+
+        }
+
+//        @Override
+//        public TokenStream onComplete(java.util.function.Consumer<String> c) { c.accept(text); return this; }
+//        @Override
+//        public String text() { return text; }
+//        @Override
+//        public TokenStream start() { return this; }
+//        @Override
+//        public TokenStream abort() { return this; }
     }
 }

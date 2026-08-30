@@ -70,10 +70,10 @@
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-easy-rag</artifactId>
         </dependency>
-        <dependency>
+     <!--   <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-redis</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-milvus</artifactId>
