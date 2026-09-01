@@ -36,7 +36,7 @@ alipay:
   # 格式
   format: JSON
   # 回调通知地址（公网可访问，沙箱可用 ngrok 等工具暴露）
-  notify-url: http://your-domain.ngrok.io/api/alipay/notify
+  notify-url: https://freckled-drop-down-smooth.ngrok-free.dev/api/pay/alipay/notify
   # 前端回调地址
   return-url: http://localhost:5173/alipay/return?orderNo=
 #  商家信息
