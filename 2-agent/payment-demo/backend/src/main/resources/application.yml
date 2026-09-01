@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/payment_demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: AAAaaa1234
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+# ============ 支付宝沙箱配置 ============
+alipay:
+  # 应用ID（沙箱应用ID）
+  app-id: 2021000000000000
+  # 商户私钥（沙箱提供）
+  private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQ...
+  # 支付宝公钥（沙箱提供）
+  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQE...
+  # 支付宝网关（沙箱环境）
+  gateway: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+  # 签名类型
+  sign-type: RSA2
+  # 字符集
+  charset: UTF-8
+  # 格式
+  format: JSON
+  # 回调通知地址（公网可访问，沙箱可用 ngrok 等工具暴露）
+  notify-url: http://your-domain.ngrok.io/api/alipay/notify
+  # 前端回调地址
+  return-url: http://localhost:5173/alipay/return
+
+# ============ 微信支付 Mock 配置 ============
+wechat:
+  app-id: wx_mock_app_id
+  mch-id: 1234567890
+  api-v3-key: mock_api_v3_key_for_development
+  # Mock 模式下不需要真实证书
+  cert-path: classpath:mock-cert.pem
+  # Mock 支付回调地址
+  notify-url: http://your-domain.ngrok.io/api/wechat/notify
+
+# 业务配置
+payment:
+  # 订单超时时间（分钟）
+  order-timeout: 30
