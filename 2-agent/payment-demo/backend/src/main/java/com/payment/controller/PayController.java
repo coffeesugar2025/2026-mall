@@ -1,10 +1,12 @@
 package com.payment.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.payment.common.ApiResponse;
 import com.payment.config.AlipayProperties;
 import com.payment.entity.Order;
 import com.payment.service.OrderService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.PrintWriter;
@@ -16,6 +18,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/pay")
+@Slf4j
 public class PayController {
 
     private final OrderService orderService;
@@ -75,6 +78,7 @@ public class PayController {
     public void alipayReturn(@RequestParam Map<String, String> params, HttpServletResponse response) {
         // 前端页面自行轮询订单状态，这里直接重定向
         try {
+            log.info("params {}", JSONObject.toJSONString(params));
             String orderNo = params.get("out_trade_no");
             response.sendRedirect("http://localhost:5173/pay/result?orderNo=" + orderNo + "&payType=ALIPAY");
         } catch (Exception e) {
@@ -111,6 +115,7 @@ public class PayController {
      */
     @GetMapping("/order/{orderNo}")
     public ApiResponse<Order> queryOrder(@PathVariable String orderNo) {
+        log.info("orderNo {}", orderNo);
         return ApiResponse.success(orderService.getByOrderNo(orderNo));
     }
 

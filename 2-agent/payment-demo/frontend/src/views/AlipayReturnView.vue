@@ -38,6 +38,7 @@ const order = ref(null)
 const orderNo = route.query.orderNo
 
 onMounted(() => {
+  debugger;
   if (orderNo) {
     checkStatus()
   } else {

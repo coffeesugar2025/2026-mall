@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
             request.setNotifyUrl(alipayProperties.getNotifyUrl());
-            request.setReturnUrl(alipayProperties.getReturnUrl());
+            request.setReturnUrl(alipayProperties.getReturnUrl()+orderNo);
 
             // 构建业务参数
             Map<String, Object> bizContent = new HashMap<>();

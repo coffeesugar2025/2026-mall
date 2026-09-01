@@ -22,11 +22,11 @@ mybatis-plus:
 # ============ 支付宝沙箱配置 ============
 alipay:
   # 应用ID（沙箱应用ID）
-  app-id: 2021000000000000
+  app-id: 9021000166674588
   # 商户私钥（沙箱提供）
-  private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQ...
+  private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCUmtHDmn6tJ1N36zcjiMMvUt+ewCFuhc8zlhmqgjE9frPGzLuL6nuQjRC1f3M+nCciNI8UHbsqqYV+Cv6hx1TazZoXbvO1QbLuDx7wVvokPqWer67H9+F64QX5puehoty19oYoARtrexsavN9bBj5BFqpNFWkvTTvaisx5g6ZYrlJjQ5QtWM6oZwv3KYnUvU6gCdrOWuqerFAmHIYnq1EN2MpGZs7JJRybmz49hGbW4/HAAfl3ySOHsaQV3i6j8qQm2TztGv0ESnZGIbvS5scASzEZCRbzwdwXsBy4pD8WrdoSMQMYFT/qGBznwzJSy8WtIfRRZxUOBz9MFWdcFcWxAgMBAAECggEANMajFq/Iq2AbEay0oWcRwr3Q80VS2jildLGrHdYs/KUB3emZ9b/p8FVZCMxhtmuorkoyQjeo4CbiZPgspHHxXd/FCOt7m/TgQhGWsE6DednR4gCMtzH+nzBJefdfrhT0A5+w14ZFIa/P2XgYbvBRrbYJ92RSPd1VE3FV2xX5PubmRd/CWS5sb55CdUCgnFPMol5F5hhU8T+oDQfBdmWhndDoPoGIk4dunVwlKhh+WMDPR3mlPhktWJ7LB9deOrUm3sTxikeF8d57oo+G6v4YSdz3vT6ykDWGA21vexcsttkkAK+wdEJIRGiR7R5mLjFPMS80mKHBPb1zhmL0GM8awQKBgQDfUZW0cLhCvbGfQgL6bXrURZeXxUvvTdtKYnDgR+g2vdKUSJnjFgoxFeio4aP3AoDY6oKFdpFTlwfF3RzfVetOB8lvCzBxXzPO/esPKCGvtdxpUjm5kIz1vl7UzWjQN5GPnl0rB2ngf3OSXhFx4jdRkh1c52DSqmB1XMBvbfZn2QKBgQCqWiaYgijLYVMPds7KTZg8q2NxgHXX3uqA9Kw/WfWLMIzydBXaimXl6kNu+yJIVGyDAOOzUUCpWNrWz/xn/x5Adx8F+Xx3PNBgMg9ZGj5tk+nq8BWNEaM9E3KIHSNY+8DY7zeDxRlEqNq9fQJN96nPKQPj01MFsRZb50aCtMs9mQKBgCwQCezPbNvmV9ynhrTo0xp9HLsad7Ag+YrEv6bRKVVbwOf3Jz3yRFKJEx33X4XGXavvIY+55FTM8QCubxr19fawfKNHXuiPs0Y9PZsA/RyRUosJaVBe4CFAza9JVEv5GuRuh82Mqexc2W3g16pTyzxyCw8grC8E5QFjKqkR1lOJAoGBAKE7KgR2TL4Ro1ejjx0SS+BAJqKqft6N8U2UReK/9hKDJSPkkzqAeukczC4iKtRic0GaeeiiIp0lqBpgR/j2EV/aXtZ8xzzjpiUlvDkNCcEUmfTuvrcB1opb+a6yRV5XCLNJ1jU1OzEsz7tAsgmxOlsD6taakJ12ej8JqkbTbvkhAoGAfNp0VlOqOPy8DlnqwzeHbeqnqy//Ld4MX86Cs/PO8f+Df1LH0JyUZB+IQK/VZ0SOmM8Jfr3llGwh7T3nUhd3ks5UPwgeEra7OdrpFCPSlDgWpApjX1JkLQlNq6jaROG8lPmLNwRHXiR0ggBcKskMW6MLDp4PcZDpN59YrY9uhA4=
   # 支付宝公钥（沙箱提供）
-  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQE...
+  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvKb8uPHy81Mb+YY7OrYK7+SOspeEQzCINzYqQDKCR9VtWQ/Qe3XKEKlMT2EACCUKKizsJesdduRpRFQ1DpXJdxl+2CgBM5QCoAfBL2wF7X22dhepzEWJCiTCw8s0MdsZlBQbjTGsRaJIg9havLdrmwd+ft/xEaSybpCf3yOKPRq16N/rr+0f06tY3nnop2J7Eqj2iLOmtU64tq3GBg3Ej7nndHZvpNr+xxhURR/WhaYpJdZWzpO+Rwhehb2L1LNKm4NDpSWjv/neLkj1mPUGlmPIANqnAAKxzy7ck0VPfzH/xkJgZVrFi5tUFEJm+8SAAfihbE5FRlVCzUJaM6kMdQIDAQAB
   # 支付宝网关（沙箱环境）
   gateway: https://openapi-sandbox.dl.alipaydev.com/gateway.do
   # 签名类型
@@ -38,8 +38,20 @@ alipay:
   # 回调通知地址（公网可访问，沙箱可用 ngrok 等工具暴露）
   notify-url: http://your-domain.ngrok.io/api/alipay/notify
   # 前端回调地址
-  return-url: http://localhost:5173/alipay/return
-
+  return-url: http://localhost:5173/alipay/return?orderNo=
+#  商家信息
+#  商户账号cfgajx0350@sandbox.com
+#  登录密码111111
+#  商户PID2088721108264708
+#  账户余额2000468.00
+#  买家信息
+#  买家账号xjvdoc6448@sandbox.com
+#  登录密码111111
+#  支付密码111111
+#  用户UID2088722108188892
+#  用户名称xjvdoc6448
+#  证件类型IDENTITY_CARD
+#  证件账号007845190311170457
 # ============ 微信支付 Mock 配置 ============
 wechat:
   app-id: wx_mock_app_id
