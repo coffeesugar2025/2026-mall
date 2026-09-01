@@ -53,7 +53,7 @@ const checkStatus = async () => {
   try {
     const res = await queryOrder(orderNo)
     order.value = res.data
-
+    debugger;
     if (res.data.status === 'PAID') {
       ElMessage.success('🎉 支付成功！')
       setTimeout(() => {
