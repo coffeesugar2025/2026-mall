@@ -157,7 +157,7 @@ public class OrderServiceImpl implements OrderService {
         log.info("微信支付(Mock)下单成功: orderNo={}, prepayId={}", orderNo, mockPrepayId);
 
         // 异步模拟用户扫码支付（5秒后自动回调）
-        simulateUserScanPayment(orderNo, mockPrepayId);
+        //simulateUserScanPayment(orderNo, mockPrepayId);
 
         return result;
     }
@@ -166,7 +166,7 @@ public class OrderServiceImpl implements OrderService {
      * 模拟用户扫码支付（Mock）
      * 5秒后自动触发支付成功回调
      */
-    @Async("mockPayExecutor")
+    //@Async("mockPayExecutor")
     public void simulateUserScanPayment(String orderNo, String prepayId) {
         try {
             // 模拟用户扫码 + 确认支付耗时

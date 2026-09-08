@@ -93,8 +93,9 @@ public class PayController {
      */
     @PostMapping("/wechat/notify")
     public String wechatNotify(@RequestBody Map<String, String> params) {
+        log.info("------------- wechatNotify start ---------------");
         try {
-            orderService.handleWechatNotify(params);
+            //orderService.handleWechatNotify(params);
             return "{\"code\": \"SUCCESS\", \"message\": \"OK\"}";
         } catch (Exception e) {
             return "{\"code\": \"FAIL\", \"message\": \"" + e.getMessage() + "\"}";
